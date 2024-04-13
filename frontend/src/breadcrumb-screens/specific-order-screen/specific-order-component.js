@@ -41,9 +41,7 @@ const SpecificOrderComponent = ({
                   Payment Method :
                 </small>{" "}
                 <small>
-                  {order?.paymentMethod === "cashOnDelivery"
-                    ? "Cash On Delivery"
-                    : "Mobile Money"}
+                  {order.paymentMethod}
                 </small>
               </ListGroup.Item>
 

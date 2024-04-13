@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 import SelectField from "../../components/input-fields/SelectField";
 import TextField from "../../components/input-fields/TextField";
 import { paymentOptions } from "../../data/payment";
-import { PaystackButton } from "react-paystack";
+//import { PaystackButton } from "react-paystack";
 import Checkout from "../../components/checkout";
 import {
   PayPalScriptProvider,
@@ -31,12 +31,13 @@ const CartComponent = ({
   totalPrice,
   handleChange,
   handleSubmit,
+  handleStaticPay,
   handleBlur,
   errors,
   values,
   touched,
   userInfo,
-  payStackProps,
+  //payStackProps,
 }) => {
   return (
     <div>
@@ -127,6 +128,9 @@ const CartComponent = ({
                         touched={touched}
                       />
                     </Form.Group>
+                    <Form.Group>
+                      <Checkout />
+                    </Form.Group>
                     {/* <Form.Group>
                     {
 Checkout.isPending ? <p>LOADING...</p> : (
@@ -141,22 +145,24 @@ Checkout.isPending ? <p>LOADING...</p> : (
                     </Form.Group> */}
 
                     <Form.Group className="mt-3 d-flex justify-content-between">
-                      {/* <Button
+                      {/* {<Button
                         type="submit"
                         variant="outline-dark"
                         disabled={cartItems.length === 0 ? true : false}
                       >
                         {values.paymentMethod === "mobileMoney" ? (
                           //<PayPalButtons/>
-                          Checkout.ButtonWrapper
-                         // <PaystackButton {...payStackProps} />
+                         
+                         //<PaystackButton {...payStackProps} />
                         ) : (
                          <Button variant="dark">Place Order</Button>
                          
                                 
                         )}
-                      </Button> */
-                      Checkout.ButtonWrapper}
+                      </Button> 
+                     } */}
+                     {/* <Button variant="dark">Place Order</Button> */}
+                     <Button variant="dark" onClick={handleSubmit}>Place Order</Button>
 
                       <NavLink to="/">
                         <Button variant="outline-danger">

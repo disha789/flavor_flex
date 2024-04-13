@@ -4,10 +4,24 @@ import {
     PayPalButtons,
     usePayPalScriptReducer
   } from "@paypal/react-paypal-js";
+import toast from "react-hot-toast";
+
+export const payStackProps = (
+    userInfo,
+    cartItems,
+    totalPrice,
+    handlePayStackOnSuccess
+  ) => {
+    return {
+      onSuccess: (res) => handlePayStackOnSuccess(res),
+      onClose: () => toast.error('wait!! You Need This Flood, Don"t Go!!!!!!'),
+    };
+  };
 //import './Checkout.css';
 
 
 const Checkout = () => {
+    
     // const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
     // const [currency, setCurrency] = useState(options.currency);
 
@@ -100,6 +114,14 @@ const ButtonWrapper = ({ showSpinner }) => {
         </>
     );
 }
+    return (
+        <div style={{ maxWidth: "750px", minHeight: "200px" }}>
+            <PayPalScriptProvider options={{ clientId: "AR-D2whhF2m7-eM8B7Au6QAh2G4E_-uccTV0H-Hi5q7Nyou4tM97Ig87SCm5FwApENYxKauyt7ze_HHz", components: "buttons", currency: "USD" }}>
+                <ButtonWrapper showSpinner={false} />
+            </PayPalScriptProvider>
+        </div>
+    );
+
     // 
     // function App() {
     //     return (

@@ -14,7 +14,7 @@ const App = () => {
     
     <div>
       <PayPalScriptProvider options={initialOptions}>
-        <Checkout/>
+       
         </PayPalScriptProvider>
       <Router>
         <Header />

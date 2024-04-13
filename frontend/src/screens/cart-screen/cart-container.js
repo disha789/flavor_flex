@@ -17,7 +17,7 @@ import {
   checkoutError,
   checkoutRequest,
 } from "../../redux/checkout/checkout-slice";
-import { payStackProps } from "../../helpers/paystack";
+//import { payStackProps } from "../../helpers/paystack";
 import { checkoutFormValidate } from "../../helpers/form-validators";
 
 const CartContainer = ({ history }) => {
@@ -51,34 +51,56 @@ const CartContainer = ({ history }) => {
   const { handleSubmit, handleBlur, handleChange, errors, values, touched } =
     useFormik({
       initialValues: {
-        address: "",
-        paymentMethod: "",
+        address: "fullerton",
+        paymentMethod: "paypal",
       },
       validationSchema: checkoutFormValidate,
-      onSubmit: (data) => {},
-    });
+   //onSubmit: (data) => {},
+  //});
 
-  const handleGoBack = () => history.goBack();
+  // const handleGoBack = () => history.goBack();
 
-  const cartInfo = {
-    deliveryFee: 10,
-    foods: cartItems,
-    totalPrice,
-  };
+  // const cartInfo = {
+  //   deliveryFee: 10,
+  //   foods: cartItems,
+  //   totalPrice,
+  // };
 
-  const handlePayStackOnSuccess = async () => {
-    const res = await dispatch(checkoutRequest(cartInfo));
-    const data = unwrapResult(res);
-    if (data.status === 201) {
-      dispatch(checkout(data));
+  // const handlePayStackOnSuccess = async () => {
+  //   const res = await dispatch(checkoutRequest(cartInfo));
+  //   const data = unwrapResult(res);
+  //   if (data.status === 201) {
+  //     dispatch(checkout(data));
+  //     localStorage.removeItem("cartItems");
+  //     dispatch(clearCart());
+  //     toast.success("congrats!, great meal awaits you!");
+  //   } else {
+  //     dispatch(checkoutError(data));
+  //     toast.error("sorry an unexpected occur!");
+  //   }
+  // }; 
+  onSubmit: async (data) => {
+    // Dispatch checkout request directly
+    const res = await dispatch(checkoutRequest({
+      deliveryFee: 10,
+      foods: cartItems,
+      totalPrice,
+      values,
+    }));
+    const result = unwrapResult(res);
+    if (result.status === 201) {
+      dispatch(checkout(result));
       localStorage.removeItem("cartItems");
       dispatch(clearCart());
-      toast.success("congrats!, great meal awaits you!");
+      toast.success("Congrats! Your order has been placed.");
     } else {
-      dispatch(checkoutError(data));
-      toast.error("sorry an unexpected occur!");
+      dispatch(checkoutError(result));
+      toast.error("Sorry, an unexpected error occurred.");
     }
-  };
+  },
+});
+
+const handleGoBack = () => history.goBack();
 
   return (
     <CartComponent
@@ -89,12 +111,6 @@ const CartContainer = ({ history }) => {
       decreaseQty={handleDecreaseQty}
       handleGoBack={handleGoBack}
       totalPrice={totalPrice}
-      payStackProps={payStackProps(
-        userInfo,
-        cartItems,
-        totalPrice,
-        handlePayStackOnSuccess
-      )}
       status={status}
       userInfo={userInfo}
       handleBlur={handleBlur}

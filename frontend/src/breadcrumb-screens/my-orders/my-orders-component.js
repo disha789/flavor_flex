@@ -34,7 +34,7 @@ const MyOrderComponent = ({ customerOrders }) => {
                   <td>{`${order._id.slice(0, 5)}...`}</td>
                   <td>{order.totalPrice}</td>
                   <td>
-                    {order?.paymentMethod === "mobileMoney" ? "MoMo" : "COD"}
+                    {order.paymentMethod}
                   </td>
                   <td>
                     <NavLink to={`/v1/user/profile/order/${order._id}`}>

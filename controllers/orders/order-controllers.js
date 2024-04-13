@@ -1,9 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 import orderModel from "../../models/orders/orderModel.js";
-
 export const POST_CREATE_AN_ORDER = async (req, res, next) => {
-  const { totalPrice, deliveryFee, address, foods, paymentMethod } = req.body;
+  const { totalPrice, deliveryFee, address="1100 N Placentia Ave, Fullerton, CA 92831", foods, paymentMethod="COD"} = req.body;
   const newOrder = await orderModel.create({
     customer: req.user._id,
     foods,
@@ -19,12 +18,12 @@ export const POST_CREATE_AN_ORDER = async (req, res, next) => {
     newOrder,
   });
 
-  smsClient.messages.create({
-    body: `Hello ${req?.user?.userName}, Kindly Waiting Patiently For Your Order, With ID: ${newOrder?._id}, Total Price: $ ${newOrder?.totalPrice} at ${newOrder?.address}`,
-    from: "+18084193653",
-    to: `+233${req?.user?.phone?.slice(1)}`,
-  });
-  return;
+//   smsClient.messages.create({
+//     body: `Hello ${req?.user?.userName}, Kindly Waiting Patiently For Your Order, With ID: ${newOrder?._id}, Total Price: $ ${newOrder?.totalPrice} at ${newOrder?.address}`,
+//     from: "+18084193653",
+//     to: `+233${req?.user?.phone?.slice(1)}`,
+//   });
+//   return;
 };
 
 export const GET_FETCH_MY_ORDERS = async (req, res, next) => {
