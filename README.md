@@ -8,7 +8,7 @@
 - [Redux Toolkit](https://redux-toolkit.js.org/introduction/getting-started)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- [Paystack Api](https://paystack.com/) to handle payments
+- [Paypal Api](https://paypal.com/) to handle payments
 
 ### Backend
 - [Multer](https://www.npmjs.com/package/multer) and [Cloudinary](https://cloudinary.com/) for file uploads.
